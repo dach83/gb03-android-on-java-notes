@@ -26,7 +26,6 @@
             style="@style/header_text_view_style"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/default_margin"
             android:maxLines="1"
             app:layout_constraintBottom_toTopOf="@id/content_text_view"
             app:layout_constraintLeft_toRightOf="@id/color_circle_text_view"
