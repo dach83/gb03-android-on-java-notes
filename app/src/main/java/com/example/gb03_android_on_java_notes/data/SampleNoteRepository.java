@@ -21,13 +21,13 @@ public class SampleNoteRepository implements NoteRepository {
     }
 
     private static List<NoteEntity> sampleNoteList() {
-        int id = 1;
+        int id = 0;
         List<NoteEntity> list = new ArrayList<>();
-        list.add(new NoteEntity(id++, "Кредит", "8700 руб"));
-        list.add(new NoteEntity(id++, "Рецепт салата с авокадо", "Нарежьте помидоры, огурцы и " +
+        list.add(new NoteEntity(++id, "Кредит", "8700 руб"));
+        list.add(new NoteEntity(++id, "Рецепт салата с авокадо", "Нарежьте помидоры, огурцы и " +
                 "авокадо крупными кусочками, а лук — тонкими полосками. Добавьте рубленую петрушку, масло, " +
                 "лимонный сок, соль и перец и перемешайте."));
-        list.add(new NoteEntity(id++, "Ссылки", "1. http://www.specialdefects.com/v2/ - походить по песку\n" +
+        list.add(new NoteEntity(++id, "Ссылки", "1. http://www.specialdefects.com/v2/ - походить по песку\n" +
                 "2. https://multator.ru/draw/ - рисовать мультики\n" +
                 "3. http://mailfuture.ru/write/ - письмо в будущее\n" +
                 "4. http://kakoysegodnyadennedeli.ru/ - какой сегодня день недели\n" +
@@ -36,17 +36,17 @@ public class SampleNoteRepository implements NoteRepository {
                 "7. http://e.ggtimer.com/ - таймер для ежедневных нужд\n" +
                 "8. http://tonematrix.audiotool.com/ - сочинять музыку\n" +
                 "9. https://virtualpiano.net/ - играть на синтезаторе\n"));
-        list.add(new NoteEntity(id++, "Ремонт", "трубы, смесители, муфты, " +
+        list.add(new NoteEntity(++id, "Ремонт", "трубы, смесители, муфты, " +
                 "фитинговые соединения, тройники, уголки, ниппели, шаровые краны, отводы"));
-        list.add(new NoteEntity(id++, "День рождения", "Парк Победы беседка №5 в 17:00"));
-        list.add(new NoteEntity(id++, "Фильмы", "1. Гнев человеческий\n" +
+        list.add(new NoteEntity(++id, "День рождения", "Парк Победы беседка №5 в 17:00"));
+        list.add(new NoteEntity(++id, "Фильмы", "1. Гнев человеческий\n" +
                 "2. Лига справедливости Зака Снайдера\n" +
                 "3. Майор Гром: Чумной Доктор\n" +
                 "4. Дюна\n" +
                 "5. Круэлла"));
-        list.add(new NoteEntity(id++, "Пакет документов", "Паспорт, ИНН, Полис"));
-        list.add(new NoteEntity(id++, "Зубной", "В 18:00 28.01"));
-        list.add(new NoteEntity(id++, "Оплатить интернет", "680 руб."));
+        list.add(new NoteEntity(++id, "Пакет документов", "Паспорт, ИНН, Полис"));
+        list.add(new NoteEntity(++id, "Зубной", "В 18:00 28.01"));
+        list.add(new NoteEntity(++id, "Оплатить интернет", "680 руб."));
         return list;
     }
 
