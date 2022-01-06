@@ -1,8 +1,9 @@
-package com.example.gb03_android_on_java_notes;
+package com.example.gb03_android_on_java_notes.ui;
 
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
+
+import com.example.gb03_android_on_java_notes.R;
 
 public class MainActivity extends AppCompatActivity {
 
