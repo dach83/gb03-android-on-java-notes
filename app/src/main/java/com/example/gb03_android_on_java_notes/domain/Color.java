@@ -15,14 +15,14 @@ public enum Color {
     INDIAN_RED(R.color.indian_red),
     DIM_GRAY(R.color.dim_gray);
 
-    private final int rgb;
+    private final int id;
 
-    Color(int rgb) {
-        this.rgb = rgb;
+    Color(int id) {
+        this.id = id;
     }
 
-    public int getRGB() {
-        return rgb;
+    public int getId() {
+        return id;
     }
 
     public static Color randomColor() {

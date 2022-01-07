@@ -49,7 +49,7 @@ public class NoteEntity {
         this.header = header;
     }
 
-    public String getText() {
+    public String getContent() {
         return text;
     }
 
