@@ -15,8 +15,8 @@
 
         <TextView
             android:id="@+id/circle_view"
-            android:layout_width="@dimen/color_circle_diameter"
-            android:layout_height="@dimen/color_circle_diameter"
+            android:layout_width="@dimen/circle_diameter"
+            android:layout_height="@dimen/circle_diameter"
             android:background="@drawable/bg_circle"
             android:backgroundTint="@color/gold"
             app:layout_constraintBottom_toBottomOf="parent"
