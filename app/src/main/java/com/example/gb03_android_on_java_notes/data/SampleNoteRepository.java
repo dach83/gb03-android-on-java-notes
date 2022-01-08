@@ -39,14 +39,16 @@ public class SampleNoteRepository implements NoteRepository {
         list.add(new NoteEntity(++id, "Ремонт", "трубы, смесители, муфты, " +
                 "фитинговые соединения, тройники, уголки, ниппели, шаровые краны, отводы"));
         list.add(new NoteEntity(++id, "День рождения", "Парк Победы беседка №5 в 17:00"));
-        list.add(new NoteEntity(++id, "Фильмы", "1. Гнев человеческий\n" +
-                "2. Лига справедливости Зака Снайдера\n" +
-                "3. Майор Гром: Чумной Доктор\n" +
+        list.add(new NoteEntity(++id, "Фильмы", "1. Рокки\n" +
+                "2. Терминатор\n" +
+                "3. Фантомас\n" +
                 "4. Дюна\n" +
-                "5. Круэлла"));
+                "5. Три мушкетера"));
         list.add(new NoteEntity(++id, "Пакет документов", "Паспорт, ИНН, Полис"));
         list.add(new NoteEntity(++id, "Зубной", "В 18:00 28.01"));
         list.add(new NoteEntity(++id, "Оплатить интернет", "680 руб."));
+        list.add(new NoteEntity(++id, "Бильярд", "Баричхолл в пятницу в 19:00"));
+        list.add(new NoteEntity(++id, "Горные лыжи", "Мраткино"));
         return list;
     }
 
