@@ -21,6 +21,10 @@ public class NoteEntity {
         this(id, new Date(), Color.randomColor(), header, text);
     }
 
+    public NoteEntity(int id) {
+        this(id, "", "");
+    }
+
     public int getId() {
         return id;
     }

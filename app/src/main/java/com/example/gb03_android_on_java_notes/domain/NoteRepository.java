@@ -6,6 +6,10 @@ public interface NoteRepository {
 
     List<NoteEntity> getNotes();
 
-    void removeNote(NoteEntity note);
+    NoteEntity createNote();
+
+    NoteEntity findNote(int noteId);
+
+    boolean removeNote(int noteId);
 
 }
