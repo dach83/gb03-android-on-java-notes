@@ -12,7 +12,7 @@ import com.example.gb03_android_on_java_notes.domain.NoteEntity;
 import com.example.gb03_android_on_java_notes.domain.NoteRepository;
 import com.google.android.material.textfield.TextInputEditText;
 
-public class DetailNoteActivity extends AppCompatActivity {
+public class EditorNoteActivity extends AppCompatActivity {
 
     public static final String NOTE_ID_EXTRA_KEY = "note_id_extra_key";
 
@@ -26,7 +26,7 @@ public class DetailNoteActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_detail_note);
+        setContentView(R.layout.activity_editor_note);
 
         noteRepository = App.get(this).getNoteRepository();
 
@@ -40,9 +40,9 @@ public class DetailNoteActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onDestroy() {
+    protected void onPause() {
+        super.onPause();
         updateNote();
-        super.onDestroy();
     }
 
     private void initView() {

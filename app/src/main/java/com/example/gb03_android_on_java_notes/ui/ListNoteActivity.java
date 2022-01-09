@@ -1,5 +1,6 @@
 package com.example.gb03_android_on_java_notes.ui;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -10,11 +11,12 @@ import android.view.View;
 
 import com.example.gb03_android_on_java_notes.App;
 import com.example.gb03_android_on_java_notes.R;
-import com.example.gb03_android_on_java_notes.data.SampleNoteRepository;
 import com.example.gb03_android_on_java_notes.domain.NoteEntity;
 import com.example.gb03_android_on_java_notes.domain.NoteRepository;
 
 public class ListNoteActivity extends AppCompatActivity implements NoteViewHolder.Callbacks {
+
+    private static final int EDITOR_REQUEST_CODE = 42;
 
     private NoteRepository noteRepository;
     private NoteAdapter adapter;
@@ -44,7 +46,6 @@ public class ListNoteActivity extends AppCompatActivity implements NoteViewHolde
     private void onClickAddNoteButton(View view) {
         NoteEntity note = noteRepository.createNote();
         showNoteEditor(note);
-        adapter.notifyItemInserted(adapter.getItemCount());
     }
 
     @Override
@@ -52,7 +53,6 @@ public class ListNoteActivity extends AppCompatActivity implements NoteViewHolde
         NoteEntity note = noteRepository.findNote(noteId);
         if (note != null) {
             showNoteEditor(note);
-            adapter.notifyItemChanged(position);
         }
     }
 
@@ -62,16 +62,21 @@ public class ListNoteActivity extends AppCompatActivity implements NoteViewHolde
             adapter.notifyItemRemoved(position);
             adapter.notifyItemRangeChanged(position, adapter.getItemCount() - position);
             return true;
-        } else {
-            return false;
         }
+        return false;
     }
 
     private void showNoteEditor(NoteEntity note) {
-        Intent intent = new Intent(this, DetailNoteActivity.class);
-        intent.putExtra(DetailNoteActivity.NOTE_ID_EXTRA_KEY, note.getId());
-        startActivity(intent);
+        Intent intent = new Intent(this, EditorNoteActivity.class);
+        intent.putExtra(EditorNoteActivity.NOTE_ID_EXTRA_KEY, note.getId());
+        startActivityForResult(intent, EDITOR_REQUEST_CODE);
     }
 
-
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == EDITOR_REQUEST_CODE) {
+            adapter.notifyDataSetChanged();
+        }
+    }
 }
