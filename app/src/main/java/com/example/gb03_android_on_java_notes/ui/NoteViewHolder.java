@@ -17,10 +17,9 @@ public class NoteViewHolder extends RecyclerView.ViewHolder {
 
     interface Callbacks {
         void onNoteSelected(int noteId, int position);
+
         boolean onNoteRemove(int noteId, int position);
     }
-
-    private static final SimpleDateFormat dateFormatter = new SimpleDateFormat("dd.MM.yyyy", Locale.US);
 
     private final Callbacks callbacks;
     private final View circleView = itemView.findViewById(R.id.circle_view);
@@ -37,7 +36,7 @@ public class NoteViewHolder extends RecyclerView.ViewHolder {
         fillCircleBackgroundColor(note.getColor());
         headerTextView.setText(note.getHeader());
         contentTextView.setText(note.getContent());
-        dateTextView.setText(dateFormatter.format(note.getDate()));
+        dateTextView.setText(NoteUtils.dateToString(note.getDate()));
 
         if (callbacks != null) {
             itemView.setOnClickListener(view -> callbacks.onNoteSelected(note.getId(), position));

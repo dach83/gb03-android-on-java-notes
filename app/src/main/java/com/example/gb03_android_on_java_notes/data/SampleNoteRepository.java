@@ -24,6 +24,11 @@ public class SampleNoteRepository implements NoteRepository {
     }
 
     @Override
+    public boolean updateNote(NoteEntity note) {
+        return true;
+    }
+
+    @Override
     public NoteEntity findNote(int noteId) {
         for (NoteEntity note : notes) {
             if (note.getId() == noteId) {

@@ -10,15 +10,16 @@
 
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/header_edit_text"
+        android:id="@+id/header_text_input_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/default_margin"
         android:hint="@string/header_hint"
-        app:layout_constraintBottom_toTopOf="@id/content_edit_text"
+        app:layout_constraintBottom_toTopOf="@id/content_text_input_layout"
         app:layout_constraintTop_toTopOf="parent">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/header_edit_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/white" />
@@ -26,7 +27,7 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/content_edit_text"
+        android:id="@+id/content_text_input_layout"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:gravity="start"
@@ -34,9 +35,10 @@
         app:boxStrokeWidth="0dp"
         app:boxStrokeWidthFocused="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/header_edit_text">
+        app:layout_constraintTop_toBottomOf="@id/header_text_input_layout">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/content_edit_text"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:backgroundTint="@color/white"

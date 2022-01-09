@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
+import com.example.gb03_android_on_java_notes.App;
 import com.example.gb03_android_on_java_notes.R;
 import com.example.gb03_android_on_java_notes.data.SampleNoteRepository;
 import com.example.gb03_android_on_java_notes.domain.NoteEntity;
@@ -24,7 +25,7 @@ public class ListNoteActivity extends AppCompatActivity implements NoteViewHolde
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list_note);
 
-        noteRepository = new SampleNoteRepository();
+        noteRepository = App.get(this).getNoteRepository();
         initView();
     }
 
@@ -43,7 +44,7 @@ public class ListNoteActivity extends AppCompatActivity implements NoteViewHolde
     private void onClickAddNoteButton(View view) {
         NoteEntity note = noteRepository.createNote();
         showNoteEditor(note);
-        adapter.notifyDataSetChanged(); // неизвестно в какой позиции окажется новая заметка
+        adapter.notifyItemInserted(adapter.getItemCount());
     }
 
     @Override
@@ -59,6 +60,7 @@ public class ListNoteActivity extends AppCompatActivity implements NoteViewHolde
     public boolean onNoteRemove(int noteId, int position) {
         if (noteRepository.removeNote(noteId)) {
             adapter.notifyItemRemoved(position);
+            adapter.notifyItemRangeChanged(position, adapter.getItemCount() - position);
             return true;
         } else {
             return false;
@@ -70,4 +72,6 @@ public class ListNoteActivity extends AppCompatActivity implements NoteViewHolde
         intent.putExtra(DetailNoteActivity.NOTE_ID_EXTRA_KEY, note.getId());
         startActivity(intent);
     }
+
+
 }

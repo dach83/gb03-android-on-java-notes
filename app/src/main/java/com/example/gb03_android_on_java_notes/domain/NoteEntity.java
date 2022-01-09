@@ -57,7 +57,7 @@ public class NoteEntity {
         return text;
     }
 
-    public void setText(String text) {
+    public void setContent(String text) {
         this.text = text;
     }
 }
