@@ -14,7 +14,7 @@
         android:id="@+id/add_note_button"
         android:layout_width="@dimen/add_button_diameter"
         android:layout_height="@dimen/add_button_diameter"
-        android:layout_gravity="bottom|right"
+        android:layout_gravity="bottom|end"
         android:layout_marginEnd="@dimen/add_button_margin"
         android:layout_marginBottom="@dimen/add_button_margin"
         android:background="@drawable/bg_circle"
