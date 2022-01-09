@@ -10,14 +10,14 @@ import com.example.gb03_android_on_java_notes.R;
 import com.example.gb03_android_on_java_notes.data.SampleNoteRepository;
 import com.example.gb03_android_on_java_notes.domain.NoteRepository;
 
-public class NoteListActivity extends AppCompatActivity {
+public class ListNoteActivity extends AppCompatActivity {
 
     private NoteRepository noteRepository;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_note_list);
+        setContentView(R.layout.activity_list_note);
 
         noteRepository = new SampleNoteRepository();
         initNoteRecyclerView();
