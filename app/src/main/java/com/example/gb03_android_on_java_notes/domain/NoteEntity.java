@@ -7,18 +7,18 @@ public class NoteEntity {
     private Date date;
     private Color color;
     private String header;
-    private String text;
+    private String content;
 
-    public NoteEntity(int id, Date date, Color color, String header, String text) {
+    public NoteEntity(int id, Date date, Color color, String header, String content) {
         this.id = id;
         this.date = date;
         this.color = color;
         this.header = header;
-        this.text = text;
+        this.content = content;
     }
 
-    public NoteEntity(int id, String header, String text) {
-        this(id, new Date(), Color.randomColor(), header, text);
+    public NoteEntity(int id, String header, String content) {
+        this(id, new Date(), Color.randomColor(), header, content);
     }
 
     public NoteEntity(int id) {
@@ -54,10 +54,14 @@ public class NoteEntity {
     }
 
     public String getContent() {
-        return text;
+        return content;
     }
 
     public void setContent(String text) {
-        this.text = text;
+        this.content = text;
+    }
+
+    public boolean isEmpty() {
+        return "".equals(header.trim()) && "".equals(content.trim());
     }
 }

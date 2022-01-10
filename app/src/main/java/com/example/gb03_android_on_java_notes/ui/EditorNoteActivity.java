@@ -60,6 +60,10 @@ public class EditorNoteActivity extends AppCompatActivity {
     private void updateNote() {
         note.setHeader(headerEditText.getText().toString());
         note.setContent(contentEditText.getText().toString());
-        noteRepository.updateNote(note);
+        if (note.isEmpty()) {
+            noteRepository.removeNote(note.getId());
+        } else {
+            noteRepository.updateNote(note);
+        }
     }
 }
