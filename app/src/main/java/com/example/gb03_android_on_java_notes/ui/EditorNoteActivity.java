@@ -40,8 +40,8 @@ public class EditorNoteActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onPause() {
-        super.onPause();
+    public void onBackPressed() {
+        super.onBackPressed();
         updateNote();
     }
 

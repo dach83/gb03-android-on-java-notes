@@ -15,9 +15,9 @@ import java.util.List;
 public class NoteAdapter extends RecyclerView.Adapter<NoteViewHolder> {
 
     interface Callbacks {
-        void onClickItem(int noteId, int position);
+        void onClickNoteItem(int noteId, int position);
 
-        boolean onLongClickItem(int noteId, int position);
+        boolean onLongClickNoteItem(int noteId, int position);
     }
 
     private final Callbacks callbacks;
@@ -40,8 +40,8 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteViewHolder> {
         NoteEntity note = notes.get(position);
         holder.bind(note);
         if (callbacks != null) {
-            holder.itemView.setOnClickListener(view -> callbacks.onClickItem(note.getId(), position));
-            holder.itemView.setOnLongClickListener(view -> callbacks.onLongClickItem(note.getId(), position));
+            holder.itemView.setOnClickListener(view -> callbacks.onClickNoteItem(note.getId(), position));
+            holder.itemView.setOnLongClickListener(view -> callbacks.onLongClickNoteItem(note.getId(), position));
         }
     }
 

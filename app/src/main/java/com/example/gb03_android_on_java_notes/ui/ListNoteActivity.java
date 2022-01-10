@@ -49,7 +49,7 @@ public class ListNoteActivity extends AppCompatActivity implements NoteAdapter.C
     }
 
     @Override
-    public void onClickItem(int noteId, int position) {
+    public void onClickNoteItem(int noteId, int position) {
         NoteEntity note = noteRepository.findNote(noteId);
         if (note != null) {
             showNoteEditor(note);
@@ -57,7 +57,7 @@ public class ListNoteActivity extends AppCompatActivity implements NoteAdapter.C
     }
 
     @Override
-    public boolean onLongClickItem(int noteId, int position) {
+    public boolean onLongClickNoteItem(int noteId, int position) {
         if (noteRepository.removeNote(noteId)) {
             adapter.notifyItemRemoved(position);
             adapter.notifyItemRangeChanged(position, adapter.getItemCount() - position);
