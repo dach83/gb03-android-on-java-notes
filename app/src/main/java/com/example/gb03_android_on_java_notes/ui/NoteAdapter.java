@@ -14,10 +14,16 @@ import java.util.List;
 
 public class NoteAdapter extends RecyclerView.Adapter<NoteViewHolder> {
 
-    private List<NoteEntity> notes;
-    private final NoteViewHolder.Callbacks callbacks;
+    interface Callbacks {
+        void onClickItem(int noteId, int position);
 
-    public NoteAdapter(List<NoteEntity> notes, NoteViewHolder.Callbacks callbacks) {
+        boolean onLongClickItem(int noteId, int position);
+    }
+
+    private final Callbacks callbacks;
+    private final List<NoteEntity> notes;
+
+    public NoteAdapter(List<NoteEntity> notes, Callbacks callbacks) {
         this.notes = notes;
         this.callbacks = callbacks;
     }
@@ -26,16 +32,22 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteViewHolder> {
     @Override
     public NoteViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_note, parent, false);
-        return new NoteViewHolder(itemView, callbacks);
+        return new NoteViewHolder(itemView);
     }
 
     @Override
     public void onBindViewHolder(@NonNull NoteViewHolder holder, int position) {
-        holder.bind(notes.get(position), position);
+        NoteEntity note = notes.get(position);
+        holder.bind(note);
+        if (callbacks != null) {
+            holder.itemView.setOnClickListener(view -> callbacks.onClickItem(note.getId(), position));
+            holder.itemView.setOnLongClickListener(view -> callbacks.onLongClickItem(note.getId(), position));
+        }
     }
 
     @Override
     public int getItemCount() {
         return notes.size();
     }
+
 }

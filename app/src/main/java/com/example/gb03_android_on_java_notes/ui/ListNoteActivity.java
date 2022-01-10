@@ -14,7 +14,7 @@ import com.example.gb03_android_on_java_notes.R;
 import com.example.gb03_android_on_java_notes.domain.NoteEntity;
 import com.example.gb03_android_on_java_notes.domain.NoteRepository;
 
-public class ListNoteActivity extends AppCompatActivity implements NoteViewHolder.Callbacks {
+public class ListNoteActivity extends AppCompatActivity implements NoteAdapter.Callbacks {
 
     private static final int EDITOR_REQUEST_CODE = 42;
 
@@ -49,7 +49,7 @@ public class ListNoteActivity extends AppCompatActivity implements NoteViewHolde
     }
 
     @Override
-    public void onNoteSelected(int noteId, int position) {
+    public void onClickItem(int noteId, int position) {
         NoteEntity note = noteRepository.findNote(noteId);
         if (note != null) {
             showNoteEditor(note);
@@ -57,7 +57,7 @@ public class ListNoteActivity extends AppCompatActivity implements NoteViewHolde
     }
 
     @Override
-    public boolean onNoteRemove(int noteId, int position) {
+    public boolean onLongClickItem(int noteId, int position) {
         if (noteRepository.removeNote(noteId)) {
             adapter.notifyItemRemoved(position);
             adapter.notifyItemRangeChanged(position, adapter.getItemCount() - position);
