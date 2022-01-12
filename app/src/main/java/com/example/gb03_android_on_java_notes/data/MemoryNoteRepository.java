@@ -30,23 +30,30 @@ public class MemoryNoteRepository implements NoteRepository {
 
     @Override
     public Note findNote(int noteId) {
-        for (Note note : notes) {
-            if (note.getId() == noteId) {
-                return note;
-            }
+        int index = indexOf(noteId);
+        if (index == -1) {
+            return null;
         }
-        return null;
+        return notes.get(index);
     }
 
     @Override
     public boolean removeNote(int noteId) {
-        Note note = findNote(noteId);
-        if (note != null) {
-            notes.remove(note);
-            return true;
-        } else {
+        int index = indexOf(noteId);
+        if (index == -1) {
             return false;
         }
+        notes.remove(index);
+        return true;
+    }
+
+    private int indexOf(int noteId) {
+        for (int i = 0; i < notes.size(); i++) {
+            if (notes.get(i).getId() == noteId) {
+                return i;
+            }
+        }
+        return -1;
     }
 
     private static List<Note> sampleNoteList() {
