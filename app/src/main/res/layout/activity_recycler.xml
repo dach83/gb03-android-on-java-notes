@@ -17,8 +17,9 @@
         android:layout_gravity="bottom|end"
         android:layout_marginEnd="@dimen/add_button_margin"
         android:layout_marginBottom="@dimen/add_button_margin"
-        android:background="@drawable/bg_circle"
+        android:background="@drawable/ic_circle"
+        android:backgroundTint="?attr/colorPrimary"
         android:elevation="@dimen/add_button_elevation"
-        android:src="@drawable/ic_action_add" />
+        android:src="@drawable/ic_add" />
 
 </FrameLayout>

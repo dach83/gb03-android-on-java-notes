@@ -25,7 +25,7 @@ public class MemoryNoteRepository implements NoteRepository {
 
     @Override
     public boolean updateNote(Note note) {
-        return true;
+        return true; // ничего не делаем, т.к. все заметки хранятся в памяти и обновляются во время редактириования
     }
 
     @Override

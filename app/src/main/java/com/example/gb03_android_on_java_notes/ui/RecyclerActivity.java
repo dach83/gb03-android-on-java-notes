@@ -18,7 +18,7 @@ public class RecyclerActivity extends AppCompatActivity implements NoteViewHolde
 
     private static final int EDITOR_REQUEST_CODE = 42;
 
-    private NoteRepository noteRepository;
+    private NoteRepository repository;
     private NoteAdapter adapter;
 
 
@@ -27,24 +27,24 @@ public class RecyclerActivity extends AppCompatActivity implements NoteViewHolde
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recycler);
 
-        noteRepository = App.get(this).getNoteRepository();
+        repository = App.get(this).getNoteRepository();
         initView();
     }
 
     private void initView() {
-        initRecyclerView();
+        initRecycler();
         findViewById(R.id.add_note_button).setOnClickListener(this::onClickAddNoteButton);
     }
 
-    private void initRecyclerView() {
+    private void initRecycler() {
         RecyclerView noteRecyclerView = findViewById(R.id.note_recycler_view);
         noteRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        adapter = new NoteAdapter(noteRepository.getNotes(), this);
+        adapter = new NoteAdapter(repository.getNotes(), this);
         noteRecyclerView.setAdapter(adapter);
     }
 
     private void onClickAddNoteButton(View view) {
-        Note note = noteRepository.createNote();
+        Note note = repository.createNote();
         showNoteEditor(note);
     }
 
@@ -55,7 +55,7 @@ public class RecyclerActivity extends AppCompatActivity implements NoteViewHolde
 
     @Override
     public boolean onLongClickItem(Note note, int position) {
-        if (noteRepository.removeNote(note.getId())) {
+        if (repository.removeNote(note.getId())) {
             adapter.notifyItemRemoved(position);
             adapter.notifyItemRangeChanged(position, adapter.getItemCount() - position);
             return true;

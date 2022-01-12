@@ -29,7 +29,7 @@ public class NoteViewHolder extends RecyclerView.ViewHolder {
     }
 
     public void bind(Note note, int position) {
-        fillCircleBackgroundColor(note.getColor());
+        fillCircleBackgroundTintColor(note.getColor());
         headerTextView.setText(note.getHeader());
         contentTextView.setText(note.getContent());
         dateTextView.setText(NoteUtils.dateToString(note.getDate()));
@@ -40,7 +40,7 @@ public class NoteViewHolder extends RecyclerView.ViewHolder {
         }
     }
 
-    private void fillCircleBackgroundColor(Color color) {
+    private void fillCircleBackgroundTintColor(Color color) {
         int rgb = itemView.getResources().getColor(color.getId(), null);
         circleView.getBackground().setTint(rgb);
     }
