@@ -8,17 +8,13 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.gb03_android_on_java_notes.R;
 import com.example.gb03_android_on_java_notes.domain.Color;
-import com.example.gb03_android_on_java_notes.domain.NoteEntity;
-
-import java.text.SimpleDateFormat;
-import java.util.Locale;
+import com.example.gb03_android_on_java_notes.domain.Note;
 
 public class NoteViewHolder extends RecyclerView.ViewHolder {
 
     interface Callbacks {
-        void onNoteSelected(int noteId, int position);
-
-        boolean onNoteRemove(int noteId, int position);
+        void onClickItem(Note note, int position);
+        boolean onLongClickItem(Note note, int position);
     }
 
     private final Callbacks callbacks;
@@ -32,15 +28,15 @@ public class NoteViewHolder extends RecyclerView.ViewHolder {
         this.callbacks = callbacks;
     }
 
-    public void bind(NoteEntity note, int position) {
+    public void bind(Note note, int position) {
         fillCircleBackgroundColor(note.getColor());
         headerTextView.setText(note.getHeader());
         contentTextView.setText(note.getContent());
         dateTextView.setText(NoteUtils.dateToString(note.getDate()));
 
         if (callbacks != null) {
-            itemView.setOnClickListener(view -> callbacks.onNoteSelected(note.getId(), position));
-            itemView.setOnLongClickListener(view -> callbacks.onNoteRemove(note.getId(), position));
+            itemView.setOnClickListener(view -> callbacks.onClickItem(note, position));
+            itemView.setOnLongClickListener(view -> callbacks.onLongClickItem(note, position));
         }
     }
 

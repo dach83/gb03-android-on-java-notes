@@ -8,15 +8,15 @@ import android.widget.TextView;
 
 import com.example.gb03_android_on_java_notes.App;
 import com.example.gb03_android_on_java_notes.R;
-import com.example.gb03_android_on_java_notes.domain.NoteEntity;
+import com.example.gb03_android_on_java_notes.domain.Note;
 import com.example.gb03_android_on_java_notes.domain.NoteRepository;
 import com.google.android.material.textfield.TextInputEditText;
 
-public class EditorNoteActivity extends AppCompatActivity {
+public class EditorActivity extends AppCompatActivity {
 
     public static final String NOTE_ID_EXTRA_KEY = "note_id_extra_key";
 
-    private NoteEntity note;
+    private Note note;
     private NoteRepository noteRepository;
 
     private TextView dateTextView;
@@ -26,7 +26,7 @@ public class EditorNoteActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_editor_note);
+        setContentView(R.layout.activity_editor);
 
         noteRepository = App.get(this).getNoteRepository();
 

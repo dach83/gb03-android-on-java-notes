@@ -2,14 +2,14 @@ package com.example.gb03_android_on_java_notes.domain;
 
 import java.util.Date;
 
-public class NoteEntity {
+public class Note {
     private final int id;
     private Date date;
     private Color color;
     private String header;
     private String text;
 
-    public NoteEntity(int id, Date date, Color color, String header, String text) {
+    public Note(int id, Date date, Color color, String header, String text) {
         this.id = id;
         this.date = date;
         this.color = color;
@@ -17,11 +17,11 @@ public class NoteEntity {
         this.text = text;
     }
 
-    public NoteEntity(int id, String header, String text) {
+    public Note(int id, String header, String text) {
         this(id, new Date(), Color.randomColor(), header, text);
     }
 
-    public NoteEntity(int id) {
+    public Note(int id) {
         this(id, "", "");
     }
 

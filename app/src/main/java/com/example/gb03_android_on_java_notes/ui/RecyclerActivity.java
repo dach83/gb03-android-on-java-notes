@@ -11,10 +11,10 @@ import android.view.View;
 
 import com.example.gb03_android_on_java_notes.App;
 import com.example.gb03_android_on_java_notes.R;
-import com.example.gb03_android_on_java_notes.domain.NoteEntity;
+import com.example.gb03_android_on_java_notes.domain.Note;
 import com.example.gb03_android_on_java_notes.domain.NoteRepository;
 
-public class ListNoteActivity extends AppCompatActivity implements NoteViewHolder.Callbacks {
+public class RecyclerActivity extends AppCompatActivity implements NoteViewHolder.Callbacks {
 
     private static final int EDITOR_REQUEST_CODE = 42;
 
@@ -25,7 +25,7 @@ public class ListNoteActivity extends AppCompatActivity implements NoteViewHolde
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_list_note);
+        setContentView(R.layout.activity_recycler);
 
         noteRepository = App.get(this).getNoteRepository();
         initView();
@@ -44,21 +44,18 @@ public class ListNoteActivity extends AppCompatActivity implements NoteViewHolde
     }
 
     private void onClickAddNoteButton(View view) {
-        NoteEntity note = noteRepository.createNote();
+        Note note = noteRepository.createNote();
         showNoteEditor(note);
     }
 
     @Override
-    public void onNoteSelected(int noteId, int position) {
-        NoteEntity note = noteRepository.findNote(noteId);
-        if (note != null) {
-            showNoteEditor(note);
-        }
+    public void onClickItem(Note note, int position) {
+        showNoteEditor(note);
     }
 
     @Override
-    public boolean onNoteRemove(int noteId, int position) {
-        if (noteRepository.removeNote(noteId)) {
+    public boolean onLongClickItem(Note note, int position) {
+        if (noteRepository.removeNote(note.getId())) {
             adapter.notifyItemRemoved(position);
             adapter.notifyItemRangeChanged(position, adapter.getItemCount() - position);
             return true;
@@ -66,9 +63,9 @@ public class ListNoteActivity extends AppCompatActivity implements NoteViewHolde
         return false;
     }
 
-    private void showNoteEditor(NoteEntity note) {
-        Intent intent = new Intent(this, EditorNoteActivity.class);
-        intent.putExtra(EditorNoteActivity.NOTE_ID_EXTRA_KEY, note.getId());
+    private void showNoteEditor(Note note) {
+        Intent intent = new Intent(this, EditorActivity.class);
+        intent.putExtra(EditorActivity.NOTE_ID_EXTRA_KEY, note.getId());
         startActivityForResult(intent, EDITOR_REQUEST_CODE);
     }
 

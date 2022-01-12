@@ -4,13 +4,13 @@ import java.util.List;
 
 public interface NoteRepository {
 
-    List<NoteEntity> getNotes();
+    List<Note> getNotes();
 
-    NoteEntity findNote(int noteId);
+    Note findNote(int noteId);
 
-    NoteEntity createNote();
+    Note createNote();
 
-    boolean updateNote(NoteEntity note);
+    boolean updateNote(Note note);
 
     boolean removeNote(int noteId);
 
