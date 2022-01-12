@@ -3,6 +3,7 @@
     package="com.example.gb03_android_on_java_notes">
 
     <application
+        android:name=".App"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -10,11 +11,15 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Gb03androidonjavanotes">
         <activity
-            android:name=".MainActivity"
+            android:name=".ui.EditorNoteActivity"
+            android:exported="true" >
+
+        </activity>
+        <activity
+            android:name=".ui.ListNoteActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
