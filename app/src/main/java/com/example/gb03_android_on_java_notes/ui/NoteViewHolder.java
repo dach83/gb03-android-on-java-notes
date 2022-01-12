@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.gb03_android_on_java_notes.R;
 import com.example.gb03_android_on_java_notes.domain.Color;
 import com.example.gb03_android_on_java_notes.domain.Note;
+import com.example.gb03_android_on_java_notes.utils.NoteUtils;
 
 public class NoteViewHolder extends RecyclerView.ViewHolder {
 
@@ -41,7 +42,7 @@ public class NoteViewHolder extends RecyclerView.ViewHolder {
     }
 
     private void fillCircleBackgroundTintColor(Color color) {
-        int rgb = itemView.getResources().getColor(color.getId(), null);
+        int rgb = itemView.getResources().getColor(color.getColorId(), null);
         circleView.getBackground().setTint(rgb);
     }
 }

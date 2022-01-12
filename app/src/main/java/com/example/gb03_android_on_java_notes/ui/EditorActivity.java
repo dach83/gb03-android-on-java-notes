@@ -8,13 +8,13 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.gb03_android_on_java_notes.App;
 import com.example.gb03_android_on_java_notes.R;
 import com.example.gb03_android_on_java_notes.domain.Color;
 import com.example.gb03_android_on_java_notes.domain.Note;
 import com.example.gb03_android_on_java_notes.domain.NoteRepository;
+import com.example.gb03_android_on_java_notes.utils.NoteUtils;
 import com.google.android.material.textfield.TextInputEditText;
 
 public class EditorActivity extends AppCompatActivity {
@@ -36,6 +36,7 @@ public class EditorActivity extends AppCompatActivity {
         repository = App.get(this).getNoteRepository();
 
         Intent intent = getIntent();
+        setResult(RESULT_OK, intent); // возвращаю тот же интент, в нем лежат все необходимые данные для обновления списка
         if (intent != null && intent.hasExtra(NOTE_ID_EXTRA_KEY)) {
             int noteId = intent.getIntExtra(NOTE_ID_EXTRA_KEY, -1);
             note = repository.findNote(noteId);
@@ -105,7 +106,7 @@ public class EditorActivity extends AppCompatActivity {
 
 
     private void fillMenuItemIconTintColor(MenuItem menuItem, Color color) {
-        int rgb = getResources().getColor(color.getId(), null);
+        int rgb = getResources().getColor(color.getColorId(), null);
         menuItem.getIcon().setTint(rgb);
     }
 

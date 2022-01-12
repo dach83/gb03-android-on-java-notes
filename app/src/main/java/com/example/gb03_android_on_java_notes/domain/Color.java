@@ -6,7 +6,6 @@ public enum Color {
     FIRE_BRICK(R.color.fire_brick),
     ORANGE_RED(R.color.orange_red),
     GOLD(R.color.gold),
-    PEACH(R.color.peach),
     SEA_GREEN(R.color.sea_green),
     SLATE_BLUE(R.color.slate_blue),
     STEEL_BLUE(R.color.steel_blue),
@@ -16,14 +15,14 @@ public enum Color {
     INDIAN_RED(R.color.indian_red),
     DIM_GRAY(R.color.dim_gray);
 
-    private final int id;
+    private final int colorId;
 
-    Color(int id) {
-        this.id = id;
+    Color(int colorId) {
+        this.colorId = colorId;
     }
 
-    public int getId() {
-        return id;
+    public int getColorId() {
+        return colorId;
     }
 
     public static Color randomColor() {
