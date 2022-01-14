@@ -2,11 +2,20 @@ package com.example.gb03_android_on_java_notes.ui;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.graphics.drawable.DrawableWrapper;
 
 import android.content.Intent;
+import android.graphics.Canvas;
+import android.graphics.ColorFilter;
+import android.graphics.PorterDuff;
+import android.graphics.drawable.Drawable;
+import android.graphics.drawable.VectorDrawable;
 import android.os.Bundle;
+import android.text.SpannableString;
+import android.text.style.ForegroundColorSpan;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.TextView;
 
 import com.example.gb03_android_on_java_notes.App;
@@ -104,10 +113,9 @@ public class EditorActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-
     private void fillMenuItemIconTintColor(MenuItem menuItem, Color color) {
         int rgb = getResources().getColor(color.getColorId(), null);
-        menuItem.getIcon().setTint(rgb);
+        menuItem.getIcon().setColorFilter(rgb, PorterDuff.Mode.SRC_IN);
     }
 
     @Override
