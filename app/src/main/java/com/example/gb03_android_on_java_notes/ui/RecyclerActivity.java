@@ -11,54 +11,52 @@ import android.view.View;
 
 import com.example.gb03_android_on_java_notes.App;
 import com.example.gb03_android_on_java_notes.R;
-import com.example.gb03_android_on_java_notes.domain.NoteEntity;
+import com.example.gb03_android_on_java_notes.domain.Note;
 import com.example.gb03_android_on_java_notes.domain.NoteRepository;
 
-public class ListNoteActivity extends AppCompatActivity implements NoteViewHolder.Callbacks {
+public class RecyclerActivity extends AppCompatActivity implements NoteViewHolder.Callbacks {
 
-    private static final int EDITOR_REQUEST_CODE = 42;
+    private static final int EDITOR_REQUEST_CODE = 1;
+    private static final String NOTE_POS_IN_LIST_KEY = "note position in recycler";
 
-    private NoteRepository noteRepository;
+    private NoteRepository repository;
     private NoteAdapter adapter;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_list_note);
+        setContentView(R.layout.activity_recycler);
 
-        noteRepository = App.get(this).getNoteRepository();
+        repository = App.get(this).getNoteRepository();
         initView();
     }
 
     private void initView() {
-        initRecyclerView();
+        initRecycler();
         findViewById(R.id.add_note_button).setOnClickListener(this::onClickAddNoteButton);
     }
 
-    private void initRecyclerView() {
+    private void initRecycler() {
         RecyclerView noteRecyclerView = findViewById(R.id.note_recycler_view);
         noteRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        adapter = new NoteAdapter(noteRepository.getNotes(), this);
+        adapter = new NoteAdapter(repository.getNotes(), this);
         noteRecyclerView.setAdapter(adapter);
     }
 
     private void onClickAddNoteButton(View view) {
-        NoteEntity note = noteRepository.createNote();
-        showNoteEditor(note);
+        Note note = repository.createNote();
+        showNoteEditor(note, adapter.getItemCount());
     }
 
     @Override
-    public void onNoteSelected(int noteId, int position) {
-        NoteEntity note = noteRepository.findNote(noteId);
-        if (note != null) {
-            showNoteEditor(note);
-        }
+    public void onClickItem(Note note, int position) {
+        showNoteEditor(note, position);
     }
 
     @Override
-    public boolean onNoteRemove(int noteId, int position) {
-        if (noteRepository.removeNote(noteId)) {
+    public boolean onLongClickItem(Note note, int position) {
+        if (repository.removeNote(note.getId())) {
             adapter.notifyItemRemoved(position);
             adapter.notifyItemRangeChanged(position, adapter.getItemCount() - position);
             return true;
@@ -66,17 +64,19 @@ public class ListNoteActivity extends AppCompatActivity implements NoteViewHolde
         return false;
     }
 
-    private void showNoteEditor(NoteEntity note) {
-        Intent intent = new Intent(this, EditorNoteActivity.class);
-        intent.putExtra(EditorNoteActivity.NOTE_ID_EXTRA_KEY, note.getId());
+    private void showNoteEditor(Note note, int position) {
+        Intent intent = new Intent(this, EditorActivity.class);
+        intent.putExtra(EditorActivity.NOTE_ID_EXTRA_KEY, note.getId());
+        intent.putExtra(NOTE_POS_IN_LIST_KEY, position);
         startActivityForResult(intent, EDITOR_REQUEST_CODE);
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == EDITOR_REQUEST_CODE) {
-            adapter.notifyDataSetChanged();
+        if (requestCode == EDITOR_REQUEST_CODE && resultCode == RESULT_OK && data != null) {
+            int position = data.getIntExtra(NOTE_POS_IN_LIST_KEY, adapter.getItemCount());
+            adapter.notifyItemChanged(position);
         }
     }
 }

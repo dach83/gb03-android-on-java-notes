@@ -1,4 +1,4 @@
-package com.example.gb03_android_on_java_notes.ui;
+package com.example.gb03_android_on_java_notes.utils;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;

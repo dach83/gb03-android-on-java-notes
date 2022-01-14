@@ -11,12 +11,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Gb03androidonjavanotes">
         <activity
-            android:name=".ui.EditorNoteActivity"
+            android:name=".ui.EditorActivity"
             android:exported="true" >
 
         </activity>
         <activity
-            android:name=".ui.ListNoteActivity"
+            android:name=".ui.RecyclerActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

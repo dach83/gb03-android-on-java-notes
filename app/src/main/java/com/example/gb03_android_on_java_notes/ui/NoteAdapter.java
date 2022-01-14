@@ -8,16 +8,16 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.gb03_android_on_java_notes.R;
-import com.example.gb03_android_on_java_notes.domain.NoteEntity;
+import com.example.gb03_android_on_java_notes.domain.Note;
 
 import java.util.List;
 
 public class NoteAdapter extends RecyclerView.Adapter<NoteViewHolder> {
 
-    private List<NoteEntity> notes;
+    private List<Note> notes;
     private final NoteViewHolder.Callbacks callbacks;
 
-    public NoteAdapter(List<NoteEntity> notes, NoteViewHolder.Callbacks callbacks) {
+    public NoteAdapter(List<Note> notes, NoteViewHolder.Callbacks callbacks) {
         this.notes = notes;
         this.callbacks = callbacks;
     }
