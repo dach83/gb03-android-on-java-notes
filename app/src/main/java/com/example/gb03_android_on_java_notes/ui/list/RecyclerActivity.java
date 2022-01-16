@@ -51,18 +51,25 @@ public class RecyclerActivity extends AppCompatActivity implements NoteViewHolde
     }
 
     @Override
-    public void onClickItem(Note note, int position) {
-        showNoteEditor(note, position);
+    public void onClickItem(Note note) {
+        //showNoteEditor(note, position);
     }
 
     @Override
-    public boolean onLongClickItem(Note note, int position) {
+    public boolean onLongClickItem(Note note) {
+        /*
         if (repository.removeNote(note.getId())) {
             adapter.notifyItemRemoved(position);
             adapter.notifyItemRangeChanged(position, adapter.getItemCount() - position);
             return true;
         }
+         */
         return false;
+    }
+
+    @Override
+    public void onBindItem(Note note, int position) {
+
     }
 
     private void showNoteEditor(Note note, int position) {
