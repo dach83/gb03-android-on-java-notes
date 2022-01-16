@@ -1,4 +1,4 @@
-package com.example.gb03_android_on_java_notes.ui;
+package com.example.gb03_android_on_java_notes.ui.editor;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;

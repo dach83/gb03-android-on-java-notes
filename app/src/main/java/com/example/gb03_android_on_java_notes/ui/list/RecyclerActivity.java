@@ -1,4 +1,4 @@
-package com.example.gb03_android_on_java_notes.ui;
+package com.example.gb03_android_on_java_notes.ui.list;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -13,6 +13,7 @@ import com.example.gb03_android_on_java_notes.App;
 import com.example.gb03_android_on_java_notes.R;
 import com.example.gb03_android_on_java_notes.domain.Note;
 import com.example.gb03_android_on_java_notes.domain.NoteRepository;
+import com.example.gb03_android_on_java_notes.ui.editor.EditorActivity;
 
 public class RecyclerActivity extends AppCompatActivity implements NoteViewHolder.Callbacks {
 

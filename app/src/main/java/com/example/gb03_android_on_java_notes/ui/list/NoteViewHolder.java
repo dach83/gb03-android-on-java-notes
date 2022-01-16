@@ -1,4 +1,4 @@
-package com.example.gb03_android_on_java_notes.ui;
+package com.example.gb03_android_on_java_notes.ui.list;
 
 import android.view.View;
 import android.widget.TextView;

@@ -20,10 +20,10 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ui.EditorActivity"
+            android:name=".ui.editor.EditorActivity"
             android:exported="true" />
         <activity
-            android:name=".ui.RecyclerActivity"
+            android:name=".ui.list.RecyclerActivity"
             android:exported="true" />
     </application>
 
