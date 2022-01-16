@@ -20,13 +20,12 @@ import com.example.gb03_android_on_java_notes.R;
 import com.example.gb03_android_on_java_notes.domain.Color;
 import com.example.gb03_android_on_java_notes.domain.Note;
 import com.example.gb03_android_on_java_notes.domain.NoteRepository;
-import com.example.gb03_android_on_java_notes.ui.list.ListFragment;
 import com.example.gb03_android_on_java_notes.utils.NoteUtils;
 import com.google.android.material.textfield.TextInputEditText;
 
 public class EditorFragment extends Fragment {
 
-    public static final String NOTE_ID_EXTRA_KEY = "note_id_extra_key";
+    public static final String NOTE_ID_KEY = "note_id_key";
 
     private Note note;
     private NoteRepository repository;
@@ -45,7 +44,7 @@ public class EditorFragment extends Fragment {
     public static EditorFragment getInstance(Note note) {
         EditorFragment fragment = new EditorFragment();
         Bundle bundle = new Bundle();
-        bundle.putInt(NOTE_ID_EXTRA_KEY, note.getId());
+        bundle.putInt(NOTE_ID_KEY, note.getId());
         fragment.setArguments(bundle);
         return fragment;
     }
@@ -79,7 +78,7 @@ public class EditorFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         setHasOptionsMenu(true);
         repository = App.get(context).getNoteRepository();
-        int noteId = getArguments().getInt(NOTE_ID_EXTRA_KEY, -1);
+        int noteId = getArguments().getInt(NOTE_ID_KEY, -1);
         note = repository.findNote(noteId);
         initView(view);
     }

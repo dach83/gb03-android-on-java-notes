@@ -19,12 +19,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".ui.editor.EditorActivity"
-            android:exported="true" />
-        <activity
-            android:name=".ui.list.RecyclerActivity"
-            android:exported="true" />
     </application>
 
 </manifest>
