@@ -29,7 +29,7 @@ public class ListFragment extends Fragment implements NoteViewHolder.Callbacks {
     private final Map<Integer, Integer> notePositionInRecycler = new HashMap<>();
 
     public interface Controller {
-        void showNoteEditor(Note note);
+        void onNoteSelected(Note note);
     }
 
     public static ListFragment getInstance() {
@@ -47,12 +47,6 @@ public class ListFragment extends Fragment implements NoteViewHolder.Callbacks {
         }
     }
 
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        controller = null;
-    }
-
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -62,7 +56,6 @@ public class ListFragment extends Fragment implements NoteViewHolder.Callbacks {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
         repository = App.get(context).getNoteRepository();
         initView(view);
     }
@@ -86,7 +79,7 @@ public class ListFragment extends Fragment implements NoteViewHolder.Callbacks {
 
     @Override
     public void onClickItem(Note note) {
-        controller.showNoteEditor(note);
+        controller.onNoteSelected(note);
     }
 
     @Override
@@ -102,7 +95,7 @@ public class ListFragment extends Fragment implements NoteViewHolder.Callbacks {
 
     private void onClickAddNoteButton(View view) {
         Note note = repository.createNote();
-        controller.showNoteEditor(note);
+        controller.onNoteSelected(note);
     }
 
     private int positionOf(Note note) {
@@ -110,7 +103,7 @@ public class ListFragment extends Fragment implements NoteViewHolder.Callbacks {
         return (position != null) ? position : adapter.getItemCount();
     }
 
-    public void updateUI(Note note) {
+    public void notifyNoteChanged(Note note) {
         int position = positionOf(note);
         adapter.notifyItemChanged(position);
     }
