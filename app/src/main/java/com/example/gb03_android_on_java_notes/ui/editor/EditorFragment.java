@@ -37,10 +37,6 @@ public class EditorFragment extends Fragment {
     private Context context;
     private Controller controller;
 
-    public interface Controller {
-        void onNoteChanged(Note note);
-    }
-
     public static EditorFragment getInstance(Note note) {
         EditorFragment fragment = new EditorFragment();
         Bundle bundle = new Bundle();
@@ -58,13 +54,6 @@ public class EditorFragment extends Fragment {
         } else {
             throw new IllegalStateException("Activity must implement EditorFragment.Controller");
         }
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-        updateNote();
-        controller.onNoteChanged(note);
     }
 
     @Nullable
@@ -158,6 +147,13 @@ public class EditorFragment extends Fragment {
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
+    public void onPause() {
+        super.onPause();
+        updateNote();
+        controller.onNoteChanged(note);
+    }
+
     private void updateColor(Color color) {
         fillMenuItemIconTintColor(selectColorMenuItem, color);
         note.setColor(color);
@@ -167,5 +163,9 @@ public class EditorFragment extends Fragment {
         note.setHeader(headerEditText.getText().toString());
         note.setContent(contentEditText.getText().toString());
         repository.updateNote(note);
+    }
+
+    public interface Controller {
+        void onNoteChanged(Note note);
     }
 }

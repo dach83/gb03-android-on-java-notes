@@ -13,13 +13,7 @@ import com.example.gb03_android_on_java_notes.utils.NoteUtils;
 
 public class NoteViewHolder extends RecyclerView.ViewHolder {
 
-    interface Callbacks {
-        void onBindItem(Note note, int position);
-        void onClickItem(Note note);
-        boolean onLongClickItem(Note note);
-    }
-
-    private final Callbacks callbacks;
+    private Callbacks callbacks;
     private final View circleView = itemView.findViewById(R.id.circle_view);
     private final TextView headerTextView = itemView.findViewById(R.id.header_text_view);
     private final TextView contentTextView = itemView.findViewById(R.id.content_text_view);
@@ -37,14 +31,22 @@ public class NoteViewHolder extends RecyclerView.ViewHolder {
         dateTextView.setText(NoteUtils.dateToString(note.getDate()));
 
         if (callbacks != null) {
-            callbacks.onBindItem(note, position);
             itemView.setOnClickListener(view -> callbacks.onClickItem(note));
             itemView.setOnLongClickListener(view -> callbacks.onLongClickItem(note));
+            callbacks.onBindItem(note, position);
         }
     }
 
     private void fillCircleBackgroundTintColor(Color color) {
         int rgb = itemView.getResources().getColor(color.getColorId(), null);
         circleView.getBackground().setTint(rgb);
+    }
+
+    interface Callbacks {
+        void onBindItem(Note note, int position);
+
+        void onClickItem(Note note);
+
+        boolean onLongClickItem(Note note);
     }
 }

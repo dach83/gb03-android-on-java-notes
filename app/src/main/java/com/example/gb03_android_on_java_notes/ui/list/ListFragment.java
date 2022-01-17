@@ -22,15 +22,11 @@ import java.util.Map;
 
 public class ListFragment extends Fragment implements NoteViewHolder.Callbacks {
 
+    private final Map<Integer, Integer> notePositionInRecycler = new HashMap<>();
     private NoteRepository repository;
     private NoteAdapter adapter;
     private Context context;
     private Controller controller;
-    private final Map<Integer, Integer> notePositionInRecycler = new HashMap<>();
-
-    public interface Controller {
-        void onNoteSelected(Note note);
-    }
 
     public static ListFragment getInstance() {
         return new ListFragment();
@@ -106,6 +102,10 @@ public class ListFragment extends Fragment implements NoteViewHolder.Callbacks {
     public void notifyNoteChanged(Note note) {
         int position = positionOf(note);
         adapter.notifyItemChanged(position);
+    }
+
+    public interface Controller {
+        void onNoteSelected(Note note);
     }
 
 }

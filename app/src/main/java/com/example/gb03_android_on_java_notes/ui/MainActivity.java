@@ -1,8 +1,8 @@
 package com.example.gb03_android_on_java_notes.ui;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.gb03_android_on_java_notes.R;
 import com.example.gb03_android_on_java_notes.domain.Note;
