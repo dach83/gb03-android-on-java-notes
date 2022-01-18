@@ -151,18 +151,19 @@ public class EditorFragment extends Fragment {
     public void onPause() {
         super.onPause();
         updateNote();
-        controller.onNoteChanged(note);
     }
 
     private void updateColor(Color color) {
         fillMenuItemIconTintColor(selectColorMenuItem, color);
         note.setColor(color);
+        updateNote();
     }
 
     private void updateNote() {
         note.setHeader(headerEditText.getText().toString());
         note.setContent(contentEditText.getText().toString());
         repository.updateNote(note);
+        controller.onNoteChanged(note);
     }
 
     public interface Controller {
