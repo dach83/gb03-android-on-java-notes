@@ -22,7 +22,7 @@ public class MainActivity extends AppCompatActivity implements ListFragment.Cont
         if (savedInstanceState == null) {
             getSupportFragmentManager()
                     .beginTransaction()
-                    .add(R.id.fragment_container, listFragment)
+                    .add(R.id.list_fragment_container, listFragment)
                     .commit();
         }
     }
@@ -31,7 +31,7 @@ public class MainActivity extends AppCompatActivity implements ListFragment.Cont
     public void onNoteSelected(Note note) {
         getSupportFragmentManager()
                 .beginTransaction()
-                .replace(R.id.fragment_container, EditorFragment.getInstance(note))
+                .replace(R.id.editor_fragment_container, EditorFragment.getInstance(note))
                 .addToBackStack(null)
                 .commit();
     }
