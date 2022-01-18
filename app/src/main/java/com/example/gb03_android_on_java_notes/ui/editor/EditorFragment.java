@@ -166,6 +166,10 @@ public class EditorFragment extends Fragment {
         controller.onNoteChanged(note);
     }
 
+    public Note getNote() {
+        return note;
+    }
+
     public interface Controller {
         void onNoteChanged(Note note);
     }

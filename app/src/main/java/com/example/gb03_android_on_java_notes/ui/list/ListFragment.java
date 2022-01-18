@@ -84,6 +84,7 @@ public class ListFragment extends Fragment implements NoteViewHolder.Callbacks {
             int position = positionOf(note);
             adapter.notifyItemRemoved(position);
             adapter.notifyItemRangeChanged(position, adapter.getItemCount() - position);
+            controller.onNoteDeleted(note);
             return true;
         }
         return false;
@@ -106,6 +107,7 @@ public class ListFragment extends Fragment implements NoteViewHolder.Callbacks {
 
     public interface Controller {
         void onNoteSelected(Note note);
+        void onNoteDeleted(Note note);
     }
 
 }

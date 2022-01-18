@@ -27,22 +27,32 @@ public class MainActivity extends AppCompatActivity implements ListFragment.Cont
         }
     }
 
+    private void clearEditorFragmentContainer() {
+        getSupportFragmentManager()
+                .popBackStackImmediate(EDITOR_BACK_STACK_NAME, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+    }
+
     @Override
     public void onNoteSelected(Note note) {
-        FragmentManager fragmentManager = getSupportFragmentManager();
-
         // Если в альбомном режиме переключаться между разными заметками, то
         // в стек добавляются несколько фрагментов редактора заметок. Как следствие,
         // кнопка "назад" будет приводить не к списку заметок, а к редактору предыдущей заметки.
         // Поэтому предварительно удаляю из стека предыдущий фрагмент с редактором.
-        fragmentManager
-                .popBackStack(EDITOR_BACK_STACK_NAME, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+        clearEditorFragmentContainer();
 
-        fragmentManager
+        getSupportFragmentManager()
                 .beginTransaction()
                 .replace(R.id.editor_fragment_container, EditorFragment.getInstance(note))
                 .addToBackStack(EDITOR_BACK_STACK_NAME)
                 .commit();
+    }
+
+    @Override
+    public void onNoteDeleted(Note note) {
+        EditorFragment editorFragment = (EditorFragment) getSupportFragmentManager().findFragmentById(R.id.editor_fragment_container);
+        if (editorFragment != null && editorFragment.getNote().getId() == note.getId()) {
+            clearEditorFragmentContainer();
+        }
     }
 
     @Override
