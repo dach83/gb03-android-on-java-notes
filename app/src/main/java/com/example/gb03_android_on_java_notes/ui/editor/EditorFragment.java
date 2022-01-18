@@ -1,13 +1,19 @@
-package com.example.gb03_android_on_java_notes.ui;
+package com.example.gb03_android_on_java_notes.ui.editor;
+
+import android.content.Context;
+import android.graphics.PorterDuff;
+import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
-import android.content.Intent;
-import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.widget.TextView;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
 
 import com.example.gb03_android_on_java_notes.App;
 import com.example.gb03_android_on_java_notes.R;
@@ -17,9 +23,9 @@ import com.example.gb03_android_on_java_notes.domain.NoteRepository;
 import com.example.gb03_android_on_java_notes.utils.NoteUtils;
 import com.google.android.material.textfield.TextInputEditText;
 
-public class EditorActivity extends AppCompatActivity {
+public class EditorFragment extends Fragment {
 
-    public static final String NOTE_ID_EXTRA_KEY = "note_id_extra_key";
+    public static final String NOTE_ID_KEY = "note_id_key";
 
     private Note note;
     private NoteRepository repository;
@@ -28,26 +34,69 @@ public class EditorActivity extends AppCompatActivity {
     private TextInputEditText headerEditText;
     private TextInputEditText contentEditText;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_editor);
+    private Context context;
+    private Controller controller;
 
-        repository = App.get(this).getNoteRepository();
+    public interface Controller {
+        void onNoteChanged(Note note);
+    }
 
-        Intent intent = getIntent();
-        setResult(RESULT_OK, intent); // возвращаю тот же интент, в нем лежат все необходимые данные для обновления списка
-        if (intent != null && intent.hasExtra(NOTE_ID_EXTRA_KEY)) {
-            int noteId = intent.getIntExtra(NOTE_ID_EXTRA_KEY, -1);
-            note = repository.findNote(noteId);
-        }
-
-        initView();
+    public static EditorFragment getInstance(Note note) {
+        EditorFragment fragment = new EditorFragment();
+        Bundle bundle = new Bundle();
+        bundle.putInt(NOTE_ID_KEY, note.getId());
+        fragment.setArguments(bundle);
+        return fragment;
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.editor_menu, menu);
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        this.context = context;
+        if (context instanceof Controller) {
+            controller = (Controller) context;
+        } else {
+            throw new IllegalStateException("Activity must implement EditorFragment.Controller");
+        }
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        updateNote();
+        controller.onNoteChanged(note);
+    }
+
+    @Nullable
+    @Override
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        return inflater.inflate(R.layout.fragment_editor, container, false);
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        setHasOptionsMenu(true);
+        repository = App.get(context).getNoteRepository();
+        int noteId = getArguments().getInt(NOTE_ID_KEY, -1);
+        note = repository.findNote(noteId);
+        initView(view);
+    }
+
+    private void initView(View view) {
+        TextView dateTextView = view.findViewById(R.id.date_text_view);
+        headerEditText = view.findViewById(R.id.header_edit_text);
+        contentEditText = view.findViewById(R.id.content_edit_text);
+        if (note != null) {
+            dateTextView.setText(NoteUtils.dateToString(note.getDate()));
+            headerEditText.setText(note.getHeader());
+            contentEditText.setText(note.getContent());
+        }
+    }
+
+    @Override
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+        inflater.inflate(R.menu.editor_menu, menu);
         fillMenuItemIconTintColor(menu.findItem(R.id.fire_brick_menu_item), Color.FIRE_BRICK);
         fillMenuItemIconTintColor(menu.findItem(R.id.orange_red_menu_item), Color.ORANGE_RED);
         fillMenuItemIconTintColor(menu.findItem(R.id.gold_menu_item), Color.GOLD);
@@ -61,7 +110,12 @@ public class EditorActivity extends AppCompatActivity {
         fillMenuItemIconTintColor(menu.findItem(R.id.dim_gray_menu_item), Color.DIM_GRAY);
         selectColorMenuItem = menu.findItem(R.id.select_color_menu_item);
         fillMenuItemIconTintColor(selectColorMenuItem, note.getColor());
-        return super.onCreateOptionsMenu(menu);
+        super.onCreateOptionsMenu(menu, inflater);
+    }
+
+    private void fillMenuItemIconTintColor(MenuItem menuItem, Color color) {
+        int rgb = getResources().getColor(color.getColorId(), null);
+        menuItem.getIcon().setColorFilter(rgb, PorterDuff.Mode.SRC_IN);
     }
 
     @Override
@@ -102,30 +156,6 @@ public class EditorActivity extends AppCompatActivity {
                 break;
         }
         return super.onOptionsItemSelected(item);
-    }
-
-
-    private void fillMenuItemIconTintColor(MenuItem menuItem, Color color) {
-        int rgb = getResources().getColor(color.getColorId(), null);
-        menuItem.getIcon().setTint(rgb);
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        updateNote();
-    }
-
-    private void initView() {
-        TextView dateTextView = findViewById(R.id.date_text_view);
-        headerEditText = findViewById(R.id.header_edit_text);
-        contentEditText = findViewById(R.id.content_edit_text);
-
-        if (note != null) {
-            dateTextView.setText(NoteUtils.dateToString(note.getDate()));
-            headerEditText.setText(note.getHeader());
-            contentEditText.setText(note.getContent());
-        }
     }
 
     private void updateColor(Color color) {

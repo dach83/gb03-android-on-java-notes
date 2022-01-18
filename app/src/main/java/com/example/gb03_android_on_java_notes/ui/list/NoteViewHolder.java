@@ -1,4 +1,4 @@
-package com.example.gb03_android_on_java_notes.ui;
+package com.example.gb03_android_on_java_notes.ui.list;
 
 import android.view.View;
 import android.widget.TextView;
@@ -14,8 +14,9 @@ import com.example.gb03_android_on_java_notes.utils.NoteUtils;
 public class NoteViewHolder extends RecyclerView.ViewHolder {
 
     interface Callbacks {
-        void onClickItem(Note note, int position);
-        boolean onLongClickItem(Note note, int position);
+        void onBindItem(Note note, int position);
+        void onClickItem(Note note);
+        boolean onLongClickItem(Note note);
     }
 
     private final Callbacks callbacks;
@@ -36,8 +37,9 @@ public class NoteViewHolder extends RecyclerView.ViewHolder {
         dateTextView.setText(NoteUtils.dateToString(note.getDate()));
 
         if (callbacks != null) {
-            itemView.setOnClickListener(view -> callbacks.onClickItem(note, position));
-            itemView.setOnLongClickListener(view -> callbacks.onLongClickItem(note, position));
+            callbacks.onBindItem(note, position);
+            itemView.setOnClickListener(view -> callbacks.onClickItem(note));
+            itemView.setOnLongClickListener(view -> callbacks.onLongClickItem(note));
         }
     }
 
