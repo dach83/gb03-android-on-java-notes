@@ -42,7 +42,7 @@ public class MainActivity extends AppCompatActivity implements ListFragment.Cont
 
         getSupportFragmentManager()
                 .beginTransaction()
-                .replace(R.id.editor_fragment_container, EditorFragment.getInstance(note))
+                .add(R.id.editor_fragment_container, EditorFragment.getInstance(note))
                 .addToBackStack(EDITOR_BACK_STACK_NAME)
                 .commit();
     }
