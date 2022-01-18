@@ -11,18 +11,16 @@ import com.example.gb03_android_on_java_notes.ui.list.ListFragment;
 
 public class MainActivity extends AppCompatActivity implements ListFragment.Controller, EditorFragment.Controller {
 
-    private ListFragment listFragment;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        listFragment = ListFragment.getInstance();
         if (savedInstanceState == null) {
             getSupportFragmentManager()
                     .beginTransaction()
-                    .add(R.id.list_fragment_container, listFragment)
+                    .replace(R.id.list_fragment_container, ListFragment.getInstance())
+                    .addToBackStack(null)
                     .commit();
         }
     }
@@ -38,6 +36,9 @@ public class MainActivity extends AppCompatActivity implements ListFragment.Cont
 
     @Override
     public void onNoteChanged(Note note) {
-        listFragment.notifyNoteChanged(note);
+        ListFragment listFragment = (ListFragment) getSupportFragmentManager().findFragmentById(R.id.list_fragment_container);
+        if (listFragment != null) {
+            listFragment.notifyNoteChanged(note);
+        }
     }
 }
