@@ -1,8 +1,9 @@
 package com.example.gb03_android_on_java_notes.ui;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentManager;
 
 import com.example.gb03_android_on_java_notes.R;
 import com.example.gb03_android_on_java_notes.domain.Note;
@@ -11,33 +12,54 @@ import com.example.gb03_android_on_java_notes.ui.list.ListFragment;
 
 public class MainActivity extends AppCompatActivity implements ListFragment.Controller, EditorFragment.Controller {
 
-    private ListFragment listFragment;
+    private static final String EDITOR_BACK_STACK_NAME = "editor";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        listFragment = ListFragment.getInstance();
         if (savedInstanceState == null) {
             getSupportFragmentManager()
                     .beginTransaction()
-                    .add(R.id.fragment_container, listFragment)
+                    .add(R.id.list_fragment_container, ListFragment.getInstance())
                     .commit();
         }
     }
 
+    private void clearEditorFragmentContainer() {
+        getSupportFragmentManager()
+                .popBackStackImmediate(EDITOR_BACK_STACK_NAME, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+    }
+
     @Override
     public void onNoteSelected(Note note) {
+        // Если в альбомном режиме переключаться между разными заметками, то
+        // в стек добавляются несколько фрагментов редактора заметок. Как следствие,
+        // кнопка "назад" будет приводить не к списку заметок, а к редактору предыдущей заметки.
+        // Поэтому предварительно удаляю из стека предыдущий фрагмент с редактором.
+        clearEditorFragmentContainer();
+
         getSupportFragmentManager()
                 .beginTransaction()
-                .replace(R.id.fragment_container, EditorFragment.getInstance(note))
-                .addToBackStack(null)
+                .add(R.id.editor_fragment_container, EditorFragment.getInstance(note))
+                .addToBackStack(EDITOR_BACK_STACK_NAME)
                 .commit();
     }
 
     @Override
+    public void onNoteDeleted(Note note) {
+        EditorFragment editorFragment = (EditorFragment) getSupportFragmentManager().findFragmentById(R.id.editor_fragment_container);
+        if (editorFragment != null && editorFragment.getNote().getId() == note.getId()) {
+            clearEditorFragmentContainer();
+        }
+    }
+
+    @Override
     public void onNoteChanged(Note note) {
-        listFragment.notifyNoteChanged(note);
+        ListFragment listFragment = (ListFragment) getSupportFragmentManager().findFragmentById(R.id.list_fragment_container);
+        if (listFragment != null) {
+            listFragment.notifyNoteChanged(note);
+        }
     }
 }

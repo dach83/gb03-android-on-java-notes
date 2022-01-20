@@ -6,8 +6,8 @@
     android:layout_height="match_parent"
     android:layout_marginStart="@dimen/default_margin"
     android:layout_marginEnd="@dimen/default_margin"
+    android:background="@color/white"
     android:orientation="vertical">
-
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/header_text_input_layout"
