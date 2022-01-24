@@ -14,7 +14,7 @@ import com.example.gb03_android_on_java_notes.utils.NoteUtils;
 public class NoteViewHolder extends RecyclerView.ViewHolder {
 
     private Callbacks callbacks;
-    private final View circleView = itemView.findViewById(R.id.circle_view);
+    private final View circleView = itemView.findViewById(R.id.color_circle_view);
     private final TextView headerTextView = itemView.findViewById(R.id.header_text_view);
     private final TextView contentTextView = itemView.findViewById(R.id.content_text_view);
     private final TextView dateTextView = itemView.findViewById(R.id.date_text_view);

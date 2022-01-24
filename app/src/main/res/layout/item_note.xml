@@ -13,8 +13,8 @@
         android:layout_height="wrap_content"
         android:padding="@dimen/default_padding">
 
-        <TextView
-            android:id="@+id/circle_view"
+        <View
+            android:id="@+id/color_circle_view"
             android:layout_width="@dimen/circle_diameter"
             android:layout_height="@dimen/circle_diameter"
             android:background="@drawable/ic_circle"
@@ -29,7 +29,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             app:layout_constraintBottom_toTopOf="@id/content_text_view"
-            app:layout_constraintLeft_toRightOf="@id/circle_view"
+            app:layout_constraintLeft_toRightOf="@id/color_circle_view"
             app:layout_constraintRight_toLeftOf="@id/date_text_view"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="Заголовок" />

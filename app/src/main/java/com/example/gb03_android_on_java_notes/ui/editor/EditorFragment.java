@@ -10,6 +10,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -157,6 +158,7 @@ public class EditorFragment extends Fragment {
         fillMenuItemIconTintColor(selectColorMenuItem, color);
         note.setColor(color);
         updateNote();
+        Toast.makeText(context, R.string.color_changed, Toast.LENGTH_LONG).show();
     }
 
     private void updateNote() {
