@@ -5,7 +5,11 @@ import static com.example.gb03_android_on_java_notes.utils.NoteUtils.colorCircle
 import android.app.AlertDialog;
 import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
@@ -59,6 +63,7 @@ public class ListFragment extends Fragment implements NoteViewHolder.Callbacks {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        setHasOptionsMenu(true);
         repository = App.get(context).getNoteRepository();
         initView(view);
     }
@@ -73,6 +78,23 @@ public class ListFragment extends Fragment implements NoteViewHolder.Callbacks {
         recyclerView.setLayoutManager(new LinearLayoutManager(context));
         adapter = new NoteAdapter(repository.getNotes(), this);
         recyclerView.setAdapter(adapter);
+    }
+
+    @Override
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+        inflater.inflate(R.menu.list_menu, menu);
+        super.onCreateOptionsMenu(menu, inflater);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.add_menu_item:
+                showEditorForNewNote();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 
     @Override
@@ -109,7 +131,12 @@ public class ListFragment extends Fragment implements NoteViewHolder.Callbacks {
                 .show();
     }
 
+
     private void onClickAddNoteButton(View view) {
+        showEditorForNewNote();
+    }
+
+    private void showEditorForNewNote() {
         Note note = repository.createNote();
         controller.onNoteSelected(note);
 

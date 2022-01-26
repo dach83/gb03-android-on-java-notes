@@ -18,7 +18,6 @@ public class MainActivity extends AppCompatActivity implements ListFragment.Cont
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         if (savedInstanceState == null) {
             getSupportFragmentManager()
                     .beginTransaction()
@@ -61,5 +60,10 @@ public class MainActivity extends AppCompatActivity implements ListFragment.Cont
         if (listFragment != null) {
             listFragment.notifyNoteChanged(note);
         }
+    }
+
+    @Override
+    public boolean inPortraitMode() {
+        return findViewById(R.id.landscape_layout) == null;
     }
 }

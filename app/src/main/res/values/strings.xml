@@ -20,4 +20,5 @@
     <string name="note_deleted">Заметка удалена</string>
     <string name="note_created">Создана новая заметка</string>
     <string name="color_changed">Изменен цвет заметки</string>
+    <string name="add_note">Добавить заметку</string>
 </resources>
