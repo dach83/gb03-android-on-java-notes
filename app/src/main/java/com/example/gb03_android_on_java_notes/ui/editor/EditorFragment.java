@@ -3,6 +3,7 @@ package com.example.gb03_android_on_java_notes.ui.editor;
 import android.content.Context;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -86,6 +87,10 @@ public class EditorFragment extends Fragment {
 
     @Override
     public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+        if(controller.inPortraitMode()) {
+            menu.clear(); // в портретном режиме показываем только меню редактора
+        }
+        Log.d("@@@", "null() called with: menu = [" + menu + "], inflater = [" + inflater + "]");
         inflater.inflate(R.menu.editor_menu, menu);
         fillMenuItemIconTintColor(menu.findItem(R.id.fire_brick_menu_item), Color.FIRE_BRICK);
         fillMenuItemIconTintColor(menu.findItem(R.id.orange_red_menu_item), Color.ORANGE_RED);
@@ -174,5 +179,6 @@ public class EditorFragment extends Fragment {
 
     public interface Controller {
         void onNoteChanged(Note note);
+        boolean inPortraitMode();
     }
 }
