@@ -3,15 +3,30 @@ package com.example.gb03_android_on_java_notes;
 import android.app.Application;
 import android.content.Context;
 
-import com.example.gb03_android_on_java_notes.data.MemoryNoteRepository;
+import com.example.gb03_android_on_java_notes.data.MemoryNoteRepositoryImpl;
+import com.example.gb03_android_on_java_notes.data.SnappyNoteRepositoryImpl;
 import com.example.gb03_android_on_java_notes.domain.NoteRepository;
 
 public class App extends Application {
 
-    private NoteRepository noteRepository = new MemoryNoteRepository();
+    private static App instance;
+    private SnappyNoteRepositoryImpl noteRepository = new SnappyNoteRepositoryImpl();
 
-    public static App get(Context context) {
-        return (App) context.getApplicationContext();
+    @Override
+    public void onCreate() {
+        super.onCreate();
+        instance = this;
+        noteRepository.init(this);
+    }
+
+    @Override
+    public void onTerminate() {
+        super.onTerminate();
+        noteRepository.destroy();
+    }
+
+    public static App get() {
+        return instance;
     }
 
     public NoteRepository getNoteRepository() {

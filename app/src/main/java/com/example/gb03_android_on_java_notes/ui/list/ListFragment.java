@@ -29,10 +29,11 @@ import com.google.android.material.snackbar.Snackbar;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 public class ListFragment extends Fragment implements NoteViewHolder.Callbacks {
 
-    private final Map<Integer, Integer> notePositionInRecycler = new HashMap<>();
+    private final Map<UUID, Integer> notePositionInRecycler = new HashMap<>();
     private NoteRepository repository;
     private NoteAdapter adapter;
     private Context context;
@@ -64,7 +65,7 @@ public class ListFragment extends Fragment implements NoteViewHolder.Callbacks {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         setHasOptionsMenu(true);
-        repository = App.get(context).getNoteRepository();
+        repository = App.get().getNoteRepository();
         initView(view);
     }
 
@@ -76,7 +77,8 @@ public class ListFragment extends Fragment implements NoteViewHolder.Callbacks {
     private void initRecycler(View view) {
         recyclerView = view.findViewById(R.id.note_recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(context));
-        adapter = new NoteAdapter(repository.getNotes(), this);
+        adapter = new NoteAdapter(this);
+        adapter.setNotes(repository.getNotes());
         recyclerView.setAdapter(adapter);
     }
 
@@ -142,6 +144,7 @@ public class ListFragment extends Fragment implements NoteViewHolder.Callbacks {
                         int position = positionOf(note);
                         adapter.notifyItemRemoved(position);
                         adapter.notifyItemRangeChanged(position, adapter.getItemCount() - position);
+                        adapter.setNotes(repository.getNotes());
                         Toast.makeText(context, R.string.note_deleted, Toast.LENGTH_SHORT).show();
                         controller.onNoteDeleted(note);
                     }
@@ -172,6 +175,7 @@ public class ListFragment extends Fragment implements NoteViewHolder.Callbacks {
 
     public void notifyNoteChanged(Note note) {
         int position = positionOf(note);
+        adapter.setNotes(repository.getNotes());
         adapter.notifyItemChanged(position);
     }
 

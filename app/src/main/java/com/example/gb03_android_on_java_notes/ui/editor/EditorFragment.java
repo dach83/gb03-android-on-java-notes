@@ -25,6 +25,8 @@ import com.example.gb03_android_on_java_notes.domain.NoteRepository;
 import com.example.gb03_android_on_java_notes.utils.NoteUtils;
 import com.google.android.material.textfield.TextInputEditText;
 
+import java.util.UUID;
+
 public class EditorFragment extends Fragment {
 
     public static final String NOTE_ID_KEY = "note_id_key";
@@ -42,7 +44,7 @@ public class EditorFragment extends Fragment {
     public static EditorFragment getInstance(Note note) {
         EditorFragment fragment = new EditorFragment();
         Bundle bundle = new Bundle();
-        bundle.putInt(NOTE_ID_KEY, note.getId());
+        bundle.putSerializable(NOTE_ID_KEY, note.getId());
         fragment.setArguments(bundle);
         return fragment;
     }
@@ -68,8 +70,8 @@ public class EditorFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         setHasOptionsMenu(true);
-        repository = App.get(context).getNoteRepository();
-        int noteId = getArguments().getInt(NOTE_ID_KEY, -1);
+        repository = App.get().getNoteRepository();
+        UUID noteId = (UUID) getArguments().getSerializable(NOTE_ID_KEY);
         note = repository.findNote(noteId);
         initView(view);
     }
