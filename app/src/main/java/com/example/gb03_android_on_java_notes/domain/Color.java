@@ -2,7 +2,9 @@ package com.example.gb03_android_on_java_notes.domain;
 
 import com.example.gb03_android_on_java_notes.R;
 
-public enum Color {
+import java.io.Serializable;
+
+public enum Color implements Serializable {
     FIRE_BRICK(R.color.fire_brick),
     ORANGE_RED(R.color.orange_red),
     GOLD(R.color.gold),
