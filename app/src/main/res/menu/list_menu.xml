@@ -6,4 +6,9 @@
         android:icon="@drawable/ic_add"
         android:title="@string/add_note"
         app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/show_app_start_counter_menu_item"
+        android:title="Счетчик запусков"
+        app:showAsAction="never" />
 </menu>

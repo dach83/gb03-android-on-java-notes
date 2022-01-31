@@ -1,9 +1,11 @@
 package com.example.gb03_android_on_java_notes.ui.list;
 
 import static com.example.gb03_android_on_java_notes.utils.NoteUtils.colorCircleDrawable;
+import static com.example.gb03_android_on_java_notes.utils.NoteUtils.incStartAppCounter;
 
 import android.app.AlertDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -24,6 +26,7 @@ import com.example.gb03_android_on_java_notes.App;
 import com.example.gb03_android_on_java_notes.R;
 import com.example.gb03_android_on_java_notes.domain.Note;
 import com.example.gb03_android_on_java_notes.domain.NoteRepository;
+import com.example.gb03_android_on_java_notes.ui.AppStartCounterActivity;
 import com.google.android.material.snackbar.BaseTransientBottomBar;
 import com.google.android.material.snackbar.Snackbar;
 
@@ -39,9 +42,16 @@ public class ListFragment extends Fragment implements NoteViewHolder.Callbacks {
     private Context context;
     private Controller controller;
     private RecyclerView recyclerView;
+    private int appStartCounter;
 
     public static ListFragment getInstance() {
         return new ListFragment();
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        appStartCounter = incStartAppCounter();
     }
 
     @Override
@@ -94,9 +104,17 @@ public class ListFragment extends Fragment implements NoteViewHolder.Callbacks {
             case R.id.add_menu_item:
                 showEditorForNewNote();
                 return true;
+            case R.id.show_app_start_counter_menu_item:
+                showAppStartCounterActivity();
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    private void showAppStartCounterActivity() {
+        Intent intent = AppStartCounterActivity.newIntent(context, appStartCounter);
+        startActivity(intent);
     }
 
     @Override
